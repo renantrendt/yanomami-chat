@@ -27,10 +27,10 @@ export const Thread: FC = () => {
     <ThreadPrimitive.Root
       className="bg-background box-border h-full flex flex-col overflow-hidden"
       style={{
-        ["--thread-max-width" as string]: "42rem",
+        ["--thread-max-width" as string]: "100%",
       }}
     >
-      <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
+      <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-2 md:px-4 pt-4 md:pt-8">
         <ThreadWelcome />
 
         <ThreadPrimitive.Messages
@@ -83,25 +83,25 @@ const ThreadWelcome: FC = () => {
 
 const ThreadWelcomeSuggestions: FC = () => {
   return (
-    <div className="mt-3 flex w-full items-stretch justify-center gap-4">
+    <div className="mt-2 md:mt-3 flex w-full flex-col md:flex-row items-stretch justify-center gap-2 md:gap-4">
       <ThreadPrimitive.Suggestion
-        className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
+        className="hover:bg-muted/80 flex max-w-full md:max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-2 md:p-3 transition-colors ease-in"
         prompt="What mean hepisiprou?"
         method="replace"
         autoSend
       >
-        <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
+        <span className="line-clamp-2 text-ellipsis text-xs md:text-sm font-semibold">
           What mean hepisiprou?
         </span>
       </ThreadPrimitive.Suggestion>
       <ThreadPrimitive.Suggestion
-        className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-        prompt="What is to become thin at a point?"
+        className="hover:bg-muted/80 flex max-w-full md:max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-2 md:p-3 transition-colors ease-in"
+        prompt="What is to climb (a mountain)"
         method="replace"
         autoSend
       >
-        <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-          What is to become thin at a point
+        <span className="line-clamp-2 text-ellipsis text-xs md:text-sm font-semibold">
+          What is to climb (a mountain)?
         </span>
       </ThreadPrimitive.Suggestion>
     </div>
@@ -110,12 +110,12 @@ const ThreadWelcomeSuggestions: FC = () => {
 
 const Composer: FC = () => {
   return (
-    <ComposerPrimitive.Root className="focus-within:border-ring/20 flex w-full flex-wrap items-end rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
+    <ComposerPrimitive.Root className="focus-within:border-ring/20 flex w-full flex-wrap items-end rounded-lg border bg-inherit px-2 md:px-2.5 shadow-sm transition-colors ease-in">
       <ComposerPrimitive.Input
         rows={1}
         autoFocus
         placeholder="Write a message..."
-        className="placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
+        className="placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-1 md:px-2 py-3 md:py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
       />
       <ComposerAction />
     </ComposerPrimitive.Root>
