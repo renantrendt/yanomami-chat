@@ -86,22 +86,22 @@ const ThreadWelcomeSuggestions: FC = () => {
     <div className="mt-3 flex w-full items-stretch justify-center gap-4">
       <ThreadPrimitive.Suggestion
         className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-        prompt="What does 'hepisiprou' mean in Yanomami?"
+        prompt="What mean hepisiprou?"
         method="replace"
         autoSend
       >
         <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-          What does 'hepisiprou' mean in Yanomami?
+          What mean hepisiprou?
         </span>
       </ThreadPrimitive.Suggestion>
       <ThreadPrimitive.Suggestion
         className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-        prompt="What does 'uko' mean in Yanomami?"
+        prompt="What is to become thin at a point?"
         method="replace"
         autoSend
       >
         <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-          What does 'uko' mean in Yanomami?
+          What is to become thin at a point
         </span>
       </ThreadPrimitive.Suggestion>
     </div>
