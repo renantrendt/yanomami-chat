@@ -7,7 +7,12 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
 const LANGCHAIN_API_KEY = process.env.LANGCHAIN_API_KEY;
 
-console.log('Usando chaves de API das variáveis de ambiente');
+if (!OPENAI_API_KEY || !PINECONE_API_KEY) {
+    console.error('Erro: Variáveis de ambiente OPENAI_API_KEY e/ou PINECONE_API_KEY não definidas');
+    console.error('Configure as variáveis de ambiente no arquivo .env.local ou no painel da Vercel');
+}
+
+console.log('Usando variáveis de ambiente para as chaves de API');
 
 // Initialize OpenAI e Pinecone clients
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
@@ -108,11 +113,9 @@ const storeEmbeddings = async (documents) => {
                     dimension: 1536, // Dimensão dos embeddings do OpenAI
                     metric: 'cosine',
                     spec: {
-                        pod: {
-                            environment: 'gcp-starter',
-                            replicas: 1,
-                            shards: 1,
-                            podType: 's1.x1'
+                        serverless: {
+                            cloud: 'aws',
+                            region: 'us-east-1'
                         }
                     }
                 });
@@ -210,8 +213,74 @@ setupRAG().then(() => {
     console.error('Erro no processo:', error);
 });
 
+// Função para consultar o RAG com base na pergunta do usuário
+const queryRAG = async (question) => {
+    try {
+        console.log('Consultando RAG para a pergunta:', question);
+        
+        // Processar a pergunta para garantir que seja uma string
+        let questionText = '';
+        
+        if (typeof question === 'string') {
+            questionText = question;
+        } else if (Array.isArray(question)) {
+            // Se for um array (como no formato de mensagens do OpenAI)
+            questionText = question.map(item => {
+                if (typeof item === 'string') return item;
+                if (item && typeof item === 'object' && 'text' in item) return item.text;
+                return '';
+            }).join(' ');
+        } else if (question && typeof question === 'object') {
+            // Se for um objeto, tentar extrair o texto ou converter para string
+            if ('content' in question) {
+                questionText = typeof question.content === 'string' ? 
+                    question.content : JSON.stringify(question.content);
+            } else if ('text' in question) {
+                questionText = question.text;
+            } else {
+                questionText = JSON.stringify(question);
+            }
+        }
+        
+        console.log('Texto da pergunta processado:', questionText);
+        
+        // Obter o índice do Pinecone
+        const indexName = 'langchain-demo';
+        const index = pinecone.index(indexName);
+        
+        // Criar embedding para a pergunta
+        const response = await openai.embeddings.create({
+            model: 'text-embedding-ada-002',
+            input: questionText
+        });
+        
+        const queryEmbedding = response.data[0].embedding;
+        
+        // Consultar o Pinecone para encontrar documentos semelhantes
+        const queryResponse = await index.query({
+            vector: queryEmbedding,
+            topK: 5,
+            includeMetadata: true
+        });
+        
+        console.log('Resposta da consulta ao Pinecone:', queryResponse);
+        console.log('Documentos encontrados:', queryResponse.matches);
+        
+        // Extrair os textos dos documentos encontrados
+        const contexts = queryResponse.matches.map(match => match.metadata.text);
+        
+        console.log(`Encontrados ${contexts.length} documentos relevantes.`);
+        
+        return contexts;
+    } catch (error) {
+        console.error('Erro ao consultar RAG:', error);
+        return [];
+    }
+};
+
 module.exports = {
     loadData,
     storeEmbeddings,
-    setupRAG
+    setupRAG,
+    queryRAG
 };
