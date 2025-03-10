@@ -85,7 +85,7 @@ export async function POST(req: Request) {
     // Adicionar uma mensagem de sistema no início para reforçar o uso exclusivo das informações do RAG
     const systemMessage = {
       role: "system",
-      content: "You are a specialized interpreter in the Yanomami language. You will provide both literal and adapted translations that you received from the RAG. If there are other options in the RAG, provide additional options, indicating that they are less likely but it may be useful for the user to know.Always respond in English."
+      content: "You are a specialized interpreter in the Yanomami language. You will provide both literal and adapted translations that you received from the RAG. If there are other options in the RAG, provide additional options, indicating that they are less likely but it may be useful for the user to know. Bring literall examples and how they apply nowadays. Always respond in English."
     };
     
     // Criar uma nova lista de mensagens com a mensagem de sistema no início
