@@ -91,7 +91,7 @@ const ThreadWelcomeSuggestions: FC = () => {
         autoSend
       >
         <span className="line-clamp-2 text-ellipsis text-xs md:text-sm font-semibold">
-          What mean hepisiprou?
+          What does hepisiprou mean?
         </span>
       </ThreadPrimitive.Suggestion>
       <ThreadPrimitive.Suggestion
@@ -101,7 +101,7 @@ const ThreadWelcomeSuggestions: FC = () => {
         autoSend
       >
         <span className="line-clamp-2 text-ellipsis text-xs md:text-sm font-semibold">
-          What is to climb (a mountain)?
+          How do I say: to climb?
         </span>
       </ThreadPrimitive.Suggestion>
     </div>
