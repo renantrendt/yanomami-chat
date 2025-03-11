@@ -2,6 +2,8 @@
 
 Este projeto é um assistente de chat que utiliza um sistema de Recuperação Aumentada por Geração (RAG) para fornecer informações precisas sobre a língua e cultura Yanomami.
 
+Teste em real-time: www.amazonias.com.br
+
 ## Funcionalidades
 
 - Chat interativo com interface amigável
