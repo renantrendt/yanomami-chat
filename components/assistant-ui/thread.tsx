@@ -73,7 +73,7 @@ const ThreadWelcome: FC = () => {
     <ThreadPrimitive.Empty>
       <div className="flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col">
         <div className="flex w-full flex-grow flex-col items-center justify-center">
-          <p className="mt-4 font-medium">How can I help you today?</p>
+          <p className="mt-4 font-medium">I'm an interpreter in Yanomami language. At this moment I have an Yanomami dictionary in my database to help you with translations. I'm being trained to improve my precision.</p>
         </div>
         <ThreadWelcomeSuggestions />
       </div>
